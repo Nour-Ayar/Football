@@ -1,19 +1,20 @@
 @RestController
-@RequestMapping(&quot;/api/teams&quot;)
+@RequestMapping("/api/teams")
 public class TeamController {
-@Autowired
-private TeamService teamService;
-@GetMapping
-public ResponseEntity&lt;Page&lt;Team&gt;&gt; getTeams(
-@RequestParam(defaultValue = &quot;0&quot;) int page,
+    @Autowired
+    private TeamService teamService;
 
-@RequestParam(defaultValue = &quot;10&quot;) int size,
-@RequestParam(defaultValue = &quot;name&quot;) String sortBy) {
-Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-return ResponseEntity.ok(teamService.getTeams(pageable));
-}
-@PostMapping
-public ResponseEntity&lt;Team&gt; addTeam(@RequestBody Team team) {
-return ResponseEntity.ok(teamService.addTeam(team));
-}
+    @GetMapping
+    public ResponseEntity<Page<Team>> getTeams(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return ResponseEntity.ok(teamService.getTeams(pageable));
+    }
+
+    @PostMapping
+    public ResponseEntity<Team> addTeam(@RequestBody Team team) {
+        return ResponseEntity.ok(teamService.addTeam(team));
+    }
 }
